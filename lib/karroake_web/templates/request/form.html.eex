@@ -1,0 +1,39 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+  
+  <%= label f, :song_id, "Välj låt:" %>
+  <%= select f, :song_id, @songs %>
+  <%= error_tag f, :song_id %>
+
+  <%= label f, :firstname1, "Förnamn" %>
+  <%= text_input f, :firstname1 %>
+  <%= error_tag f, :firstname1 %>
+
+  <%= label f, :secondname1, "Efternamn" %>
+  <%= text_input f, :secondname1 %>
+  <%= error_tag f, :secondname1 %>
+
+  <%= label f, :firstname2, "Förnamn" %>
+  <%= text_input f, :firstname2 %>
+  <%= error_tag f, :firstname2 %>
+
+  <%= label f, :secondname2, "Efternamn" %>
+  <%= text_input f, :secondname2 %>
+  <%= error_tag f, :secondname2 %>
+
+  <%= label f, :firstname3, "Förnamn" %>
+  <%= text_input f, :firstname3 %>
+  <%= error_tag f, :firstname3 %>
+
+  <%= label f, :secondname3, "Efternamn" %>
+  <%= text_input f, :secondname3 %>
+  <%= error_tag f, :secondname3 %>
+
+  <div>
+    <%= submit "Save" %>
+  </div>
+<% end %>

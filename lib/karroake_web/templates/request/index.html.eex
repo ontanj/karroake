@@ -1,0 +1,38 @@
+<h1>Listing Requests</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Firstname1</th>
+      <th>Secondname1</th>
+      <th>Firstname2</th>
+      <th>Secondname2</th>
+      <th>Firstname3</th>
+      <th>Secondname3</th>
+      <th>In set</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for request <- @requests do %>
+    <tr>
+      <td><%= request.firstname1 %></td>
+      <td><%= request.secondname1 %></td>
+      <td><%= request.firstname2 %></td>
+      <td><%= request.secondname2 %></td>
+      <td><%= request.firstname3 %></td>
+      <td><%= request.secondname3 %></td>
+      <td><%= request.in_set %></td>
+
+      <td>
+        <%= link "Show", to: Routes.request_path(@conn, :show, request) %>
+        <%= link "Edit", to: Routes.request_path(@conn, :edit, request) %>
+        <%= link "Delete", to: Routes.request_path(@conn, :delete, request), method: :delete, data: [confirm: "Are you sure?"] %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Request", to: Routes.request_path(@conn, :new) %></span>

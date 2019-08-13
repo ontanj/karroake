@@ -17,6 +17,9 @@ defmodule KarroakeWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+
+    get "/sjung", RequestController, :new
+    post "/sjung", RequestController, :create
   end
 
   # Other scopes may use custom stacks.

@@ -1,0 +1,18 @@
+<h1>Show Request</h1>
+
+<ul>
+
+  <li>
+    <strong>Namn:</strong>
+    <%= singer_name(@request, 1) %><br>
+    <%= singer_name(@request, 2) %><br>
+    <%= singer_name(@request, 3) %>
+  </li>
+
+  <li>
+    <strong>Låt:</strong>
+    <%= @request.song.artist <> " - " <> @request.song.song %>
+  </li>
+
+</ul>
+
