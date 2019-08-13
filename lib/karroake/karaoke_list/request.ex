@@ -9,7 +9,6 @@ defmodule Karroake.KaraokeList.Request do
     field :firstname1, :string
     field :firstname2, :string
     field :firstname3, :string
-    field :status, :integer, default: 0
     field :secondname1, :string
     field :secondname2, :string
     field :secondname3, :string
@@ -22,7 +21,7 @@ defmodule Karroake.KaraokeList.Request do
   @doc false
   def changeset(request, attrs) do
     request
-    |> cast(attrs, [:firstname1, :secondname1, :firstname2, :secondname2, :firstname3, :secondname3, :status])
+    |> cast(attrs, [:firstname1, :secondname1, :firstname2, :secondname2, :firstname3, :secondname3])
     |> validate_required([:firstname1, :secondname1])
   end
 end
