@@ -22,12 +22,10 @@ defmodule KarroakeWeb.Router do
 
     get "/sjung", RequestController, :new
     post "/sjung", RequestController, :create
-
     get "/spellista", RequestController, :index
 
     get "/" <> admin_route, AdminController, :index
     post "/" <> admin_route, AdminController, :create
-    
     post "/" <> admin_route <> "/played", AdminController, :played
     
   end

@@ -11,11 +11,11 @@ defmodule KarroakeWeb.AdminController do
 
   def create(conn, %{"request" => request_id}) do
     case KaraokeList.create_set_song(request_id) do
-      {:ok, admin} ->
+      {:ok, _} ->
         conn
         |> put_flash(:info, "Låten tillagd!")
        
-      {:error, %Ecto.Changeset{} = changeset} ->
+      {:error, _} ->
         conn
         |> put_flash(:error, "Något gick fel :((")
     end
@@ -27,11 +27,11 @@ defmodule KarroakeWeb.AdminController do
     |> String.to_integer
     |> KaraokeList.played_set_song
     |> case do
-      {:ok, admin} ->
+      {:ok, _} ->
         conn
         |> put_flash(:info, "Låten är märkt som spelad.")
        
-      {:error, %Ecto.Changeset{} = changeset} ->
+      {:error, _} ->
         conn
         |> put_flash(:error, "Något gick fel :((")
     end

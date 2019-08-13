@@ -172,24 +172,6 @@ defmodule Karroake.KaraokeList do
   end
 
   @doc """
-  Updates a request.
-
-  ## Examples
-
-      iex> update_request(request, %{field: new_value})
-      {:ok, %Request{}}
-
-      iex> update_request(request, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def update_request(%Request{} = request, attrs) do
-    request
-    |> Request.changeset(attrs)
-    |> Repo.update()
-  end
-
-  @doc """
   Deletes a Request.
 
   ## Examples
@@ -218,7 +200,16 @@ defmodule Karroake.KaraokeList do
     Request.changeset(request, %{})
   end
 
+  @doc """
+  Preloads the song to the request.
+  """
   def preload_song(%Request{} = request), do: Repo.preload(request, :song)
+
+  @doc """
+  Returns a list with set songs.
+  If provided, first argument can be `:played` or `:unplayed`
+  and in that case only played or unplayed set songs are returned.
+  """
 
   def list_set_songs do
     SetSong
