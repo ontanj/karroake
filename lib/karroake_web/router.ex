@@ -1,6 +1,8 @@
 defmodule KarroakeWeb.Router do
   use KarroakeWeb, :router
 
+  admin_route = Application.fetch_env!(:karroake, KarroakeWeb.Router) |> Keyword.get(:admin_route)
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -23,10 +25,10 @@ defmodule KarroakeWeb.Router do
 
     get "/spellista", RequestController, :index
 
-    get "/balkantuba", AdminController, :index
-    post "/balkantuba", AdminController, :create
+    get "/" <> admin_route, AdminController, :index
+    post "/" <> admin_route, AdminController, :create
     
-    post "/balkantuba/played", AdminController, :played
+    post "/" <> admin_route <> "/played", AdminController, :played
     
   end
 
