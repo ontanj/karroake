@@ -7,6 +7,8 @@ defmodule Karroake.KaraokeList do
   alias Karroake.Repo
 
   alias Karroake.KaraokeList.Song
+  alias Karroake.KaraokeList.SetSong
+  alias Karroake.KaraokeList.Request
 
   @doc """
   Returns the list of songs.
@@ -103,10 +105,9 @@ defmodule Karroake.KaraokeList do
     Song.changeset(song, %{})
   end
 
-  alias Karroake.KaraokeList.Request
-
   @doc """
   Returns the list of requests.
+  Passing `:requested` as input only lists those not in setlist yet.
 
   ## Examples
 
@@ -114,8 +115,19 @@ defmodule Karroake.KaraokeList do
       [%Request{}, ...]
 
   """
+  def list_requests(:requested) do
+    Request
+    |> order_by(:id)
+    |> preload(:song)
+    |> join(:left, [r], ss in assoc(r, :set_song))
+    |> where([r, ss], is_nil(ss.id))  
+    |> Repo.all()
+  end
   def list_requests do
-    Repo.all(Request)
+    Request
+    |> preload(:song)
+    |> order_by(:id)
+    |> Repo.all()
   end
 
   @doc """
@@ -152,8 +164,9 @@ defmodule Karroake.KaraokeList do
     |> Request.changeset(attrs)
     |> Repo.insert()
   end
+  def create_request(attrs \\ %{})
   def create_request(attrs = %{"song_id" => song_id}), do: create_request(song_id, attrs)
-  def create_request(attrs \\ %{}) do
+  def create_request(attrs) do
     %Request{}
     |> Request.changeset(attrs)
   end
@@ -206,4 +219,75 @@ defmodule Karroake.KaraokeList do
   end
 
   def preload_song(%Request{} = request), do: Repo.preload(request, :song)
+
+  def list_set_songs do
+    SetSong
+    |> preload([request: ^preload(Request, :song)])
+    |> order_by(:id)
+    |> Repo.all
+  end
+  def list_set_songs(:played) do
+    SetSong
+    |> preload([request: ^preload(Request, :song)])
+    |> where(played: true)
+    |> order_by(:id)
+    |> Repo.all
+  end
+  def list_set_songs(:unplayed) do
+    SetSong
+    |> preload([request: ^preload(Request, :song)])
+    |> where(played: false)
+    |> order_by(:id)
+    |> Repo.all
+  end
+
+  @doc """
+  Gets a single set song.
+
+  Raises `Ecto.NoResultsError` if the SetSong does not exist.
+
+  ## Examples
+
+      iex> get_set_song!(123)
+      %Song{}
+
+      iex> get_set_song!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_set_song!(id), do: Repo.get!(SetSong, id)
+
+  @doc """
+  Creates a set song, for provided request_id.
+  """
+  def create_set_song(request_id) do
+    get_request!(request_id)
+    |> Ecto.build_assoc(:set_song)
+    |> Repo.insert
+  end
+
+  @doc """
+  Updates a set song.
+
+  ## Examples
+
+      iex> update_set_song(song, %{field: new_value})
+      {:ok, %Song{}}
+
+      iex> update_set_song(song, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_set_song(%SetSong{} = song, attrs) do
+    song
+    |> SetSong.changeset(attrs)
+    |> Repo.update()
+  end
+  def update_set_song(song_id, attrs) when is_integer(song_id), do: get_set_song!(song_id) |> update_set_song(attrs)
+
+  @doc """
+  Mark the set song as played.
+  """
+  def played_set_song(song), do: update_set_song(song, %{played: true})
+
 end

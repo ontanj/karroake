@@ -3,6 +3,7 @@ defmodule Karroake.KaraokeList.Request do
   import Ecto.Changeset
 
   alias Karroake.KaraokeList.Song
+  alias Karroake.KaraokeList.SetSong
 
   schema "requests" do
     field :firstname1, :string
@@ -13,6 +14,7 @@ defmodule Karroake.KaraokeList.Request do
     field :secondname2, :string
     field :secondname3, :string
     belongs_to :song, Song
+    has_one :set_song, SetSong
 
     timestamps()
   end

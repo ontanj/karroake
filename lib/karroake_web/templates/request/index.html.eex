@@ -1,38 +1,39 @@
-<h1>Listing Requests</h1>
+<h1>Här är spellistan just nu</h1>
 
+<h3>De senast spelade låtarna:</h3>
 <table>
   <thead>
     <tr>
-      <th>Firstname1</th>
-      <th>Secondname1</th>
-      <th>Firstname2</th>
-      <th>Secondname2</th>
-      <th>Firstname3</th>
-      <th>Secondname3</th>
-      <th>In set</th>
-
-      <th></th>
+      <th>Artist</th>
+      <th>Låt</th>
     </tr>
   </thead>
   <tbody>
-<%= for request <- @requests do %>
+<%= for past <- @pastsongs do %>
     <tr>
-      <td><%= request.firstname1 %></td>
-      <td><%= request.secondname1 %></td>
-      <td><%= request.firstname2 %></td>
-      <td><%= request.secondname2 %></td>
-      <td><%= request.firstname3 %></td>
-      <td><%= request.secondname3 %></td>
-      <td><%= request.in_set %></td>
+      <td><%= past.request.song.artist %></td>
+      <td><%= past.request.song.song %></td>
+    </tr>
+<% end %>
+  </tbody>
+<table>
 
-      <td>
-        <%= link "Show", to: Routes.request_path(@conn, :show, request) %>
-        <%= link "Edit", to: Routes.request_path(@conn, :edit, request) %>
-        <%= link "Delete", to: Routes.request_path(@conn, :delete, request), method: :delete, data: [confirm: "Are you sure?"] %>
-      </td>
+<h3>Kommande låtar:<h3>
+<table>
+  <thead>
+    <tr>
+      <th>Artist</th>
+      <th>Låt</th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for song <- @setsongs do %>
+    <tr>
+      <td><%= song.request.song.artist %></td>
+      <td><%= song.request.song.song %></td>
     </tr>
 <% end %>
   </tbody>
 </table>
 
-<span><%= link "New Request", to: Routes.request_path(@conn, :new) %></span>
+<span><%= link "Jag vill också sjunga!", to: Routes.request_path(@conn, :new) %></span>

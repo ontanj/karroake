@@ -20,6 +20,14 @@ defmodule KarroakeWeb.Router do
 
     get "/sjung", RequestController, :new
     post "/sjung", RequestController, :create
+
+    get "/spellista", RequestController, :index
+
+    get "/balkantuba", AdminController, :index
+    post "/balkantuba", AdminController, :create
+    
+    post "/balkantuba/played", AdminController, :played
+    
   end
 
   # Other scopes may use custom stacks.

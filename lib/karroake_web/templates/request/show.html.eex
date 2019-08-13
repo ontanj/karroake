@@ -1,16 +1,16 @@
-<h1>Show Request</h1>
+<h1>Din önskning är inskickad!</h1>
 
 <ul>
 
   <li>
-    <strong>Namn:</strong>
+    <strong>Sångare</strong><br>
     <%= singer_name(@request, 1) %><br>
     <%= singer_name(@request, 2) %><br>
     <%= singer_name(@request, 3) %>
   </li>
 
   <li>
-    <strong>Låt:</strong>
+    <strong>Låt</strong><br>
     <%= @request.song.artist <> " - " <> @request.song.song %>
   </li>
 

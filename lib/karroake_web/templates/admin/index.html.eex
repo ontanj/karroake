@@ -1,0 +1,48 @@
+<h1>Nuvarande spellista</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Artist</th>
+      <th>Låt</th>
+      <th>Sångare</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for queue <- @queued do %>
+    <tr>
+      <td><%= queue.request.song.artist %></td>
+      <td><%= queue.request.song.song %></td>
+      <td><%= all_singers(queue.request, ", ") %></td>
+      <th><%= if !queue.played do %>
+        <%= link "Spelad", to: Routes.admin_path(@conn, :played, [setsong: queue]), method: :post %>
+        <% end %>
+      </th>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<h1>Förfrågningar</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Artist</th>
+      <th>Låt</th>
+      <th>Sångare</th>
+      <td></td>
+    </tr>
+<%= for request <- @requested do %>
+    <tr>
+      <td><%= request.song.artist %></td>
+      <td><%= request.song.song %></td>
+      <td><%= all_singers(request, ", ") %></td>
+      <td>
+        <%= link "Lägg till", to: Routes.admin_path(@conn, :create, [request: request]), method: :post %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>

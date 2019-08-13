@@ -134,4 +134,61 @@ defmodule Karroake.KaraokeListTest do
       assert %Ecto.Changeset{} = KaraokeList.change_request(request)
     end
   end
+
+  describe "admin" do
+    alias Karroake.KaraokeList.Admin
+
+    @valid_attrs %{}
+    @update_attrs %{}
+    @invalid_attrs %{}
+
+    def admin_fixture(attrs \\ %{}) do
+      {:ok, admin} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> KaraokeList.create_admin()
+
+      admin
+    end
+
+    test "list_admin/0 returns all admin" do
+      admin = admin_fixture()
+      assert KaraokeList.list_admin() == [admin]
+    end
+
+    test "get_admin!/1 returns the admin with given id" do
+      admin = admin_fixture()
+      assert KaraokeList.get_admin!(admin.id) == admin
+    end
+
+    test "create_admin/1 with valid data creates a admin" do
+      assert {:ok, %Admin{} = admin} = KaraokeList.create_admin(@valid_attrs)
+    end
+
+    test "create_admin/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = KaraokeList.create_admin(@invalid_attrs)
+    end
+
+    test "update_admin/2 with valid data updates the admin" do
+      admin = admin_fixture()
+      assert {:ok, %Admin{} = admin} = KaraokeList.update_admin(admin, @update_attrs)
+    end
+
+    test "update_admin/2 with invalid data returns error changeset" do
+      admin = admin_fixture()
+      assert {:error, %Ecto.Changeset{}} = KaraokeList.update_admin(admin, @invalid_attrs)
+      assert admin == KaraokeList.get_admin!(admin.id)
+    end
+
+    test "delete_admin/1 deletes the admin" do
+      admin = admin_fixture()
+      assert {:ok, %Admin{}} = KaraokeList.delete_admin(admin)
+      assert_raise Ecto.NoResultsError, fn -> KaraokeList.get_admin!(admin.id) end
+    end
+
+    test "change_admin/1 returns a admin changeset" do
+      admin = admin_fixture()
+      assert %Ecto.Changeset{} = KaraokeList.change_admin(admin)
+    end
+  end
 end
