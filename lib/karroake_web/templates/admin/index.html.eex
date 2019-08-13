@@ -16,7 +16,7 @@
       <td><%= queue.request.song.song %></td>
       <td><%= all_singers(queue.request, ", ") %></td>
       <th><%= if !queue.played do %>
-        <%= link "Spelad", to: Routes.admin_path(@conn, :played, [setsong: queue]), method: :post %>
+        <%= button "Spelad", to: Routes.admin_path(@conn, :played, [setsong: queue]), method: :post %>
         <% end %>
       </th>
     </tr>
@@ -40,7 +40,7 @@
       <td><%= request.song.song %></td>
       <td><%= all_singers(request, ", ") %></td>
       <td>
-        <%= link "Lägg till", to: Routes.admin_path(@conn, :create, [request: request]), method: :post %>
+        <%= button "Lägg till", to: Routes.admin_path(@conn, :create, [request: request]) %>
       </td>
     </tr>
 <% end %>

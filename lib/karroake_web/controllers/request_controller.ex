@@ -4,19 +4,24 @@ defmodule KarroakeWeb.RequestController do
   alias Karroake.KaraokeList
   alias Karroake.KaraokeList.Request
 
+  defp get_past_songs do
+    past_songs = KaraokeList.list_set_songs(:played)
+    Enum.slice(past_songs, 0-min(10, length(past_songs))..-1)
+  end
+
   def index(conn, _params) do
     requests = KaraokeList.list_set_songs(:unplayed)
-    past_songs = KaraokeList.list_set_songs(:played)
-    past_songs = past_songs
-    |> Enum.slice(0-min(10, length(past_songs))..-1)
+    past_songs = get_past_songs
     render(conn, "index.html", setsongs: requests, pastsongs: past_songs)
   end
 
   def new(conn, _params) do
+    pastsongs = get_past_songs()
+    setsongs = KaraokeList.list_set_songs(:unplayed)
     changeset = KaraokeList.change_request(%Request{})
     songs = KaraokeList.list_songs()
     |> Enum.map(fn song -> [key: song.artist <> " - " <> song.song, value: song.id] end)
-    render(conn, "new.html", changeset: changeset, songs: songs)
+    render(conn, "new.html", changeset: changeset, songs: songs, setsongs: setsongs, pastsongs: pastsongs)
   end
 
   def create(conn, %{"request" => request_params}) do

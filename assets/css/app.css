@@ -1,3 +1,17 @@
 /* This file is for your main application css. */
 
 @import "./phoenix.css";
+
+.two-col {
+    overflow: hidden;/* Makes this div contain its floats */
+}
+
+.two-col .col1,
+.two-col .col2 {
+    width: 45%;
+}
+
+.two-col .col1 {
+    float: left;
+    margin: 0 20px 0 0;
+}

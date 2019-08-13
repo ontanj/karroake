@@ -16,3 +16,5 @@
 
 </ul>
 
+<%= link "Ta mig till spellistan!", to: Routes.request_path(@conn, :index), class: "button-link" %>
+

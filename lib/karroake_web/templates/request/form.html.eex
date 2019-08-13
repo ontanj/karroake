@@ -4,36 +4,52 @@
       <p>Oops, something went wrong! Please check the errors below.</p>
     </div>
   <% end %>
-  
+
+    <div>
   <%= label f, :song_id, "Välj låt:" %>
   <%= select f, :song_id, @songs %>
   <%= error_tag f, :song_id %>
+    </div>
 
+    <div class="two-col">
+      <div class="col1">
   <%= label f, :firstname1, "Förnamn" %>
   <%= text_input f, :firstname1 %>
   <%= error_tag f, :firstname1 %>
-
+      </div>
+      <div class="col1">
   <%= label f, :secondname1, "Efternamn" %>
   <%= text_input f, :secondname1 %>
   <%= error_tag f, :secondname1 %>
-
+      </div>
+    </div>
+    
+    <div class="two-col">
+      <div class="col1">
   <%= label f, :firstname2, "Förnamn" %>
   <%= text_input f, :firstname2 %>
   <%= error_tag f, :firstname2 %>
-
+      </div>
+      <div class="col1">
   <%= label f, :secondname2, "Efternamn" %>
   <%= text_input f, :secondname2 %>
   <%= error_tag f, :secondname2 %>
-
+      </div>
+    </div>
+    
+    <div class="two-col">
+      <div class="col1">
   <%= label f, :firstname3, "Förnamn" %>
   <%= text_input f, :firstname3 %>
   <%= error_tag f, :firstname3 %>
-
+      </div>
+      <div class="col1">
   <%= label f, :secondname3, "Efternamn" %>
   <%= text_input f, :secondname3 %>
   <%= error_tag f, :secondname3 %>
-
+      </div>
+    </div>
   <div>
-    <%= submit "Save" %>
+    <%= submit "Skicka in" %>
   </div>
 <% end %>
