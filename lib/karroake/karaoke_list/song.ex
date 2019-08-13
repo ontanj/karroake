@@ -16,7 +16,7 @@ defmodule Karroake.KaraokeList.Song do
   @doc false
   def changeset(song, attrs) do
     song
-    |> cast(attrs, [:artist, :song])
-    |> validate_required([:artist, :song])
+    |> cast(attrs, [:id, :artist, :song])
+    |> validate_required([:id, :artist, :song])
   end
 end

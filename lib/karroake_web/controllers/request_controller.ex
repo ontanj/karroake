@@ -16,9 +16,13 @@ defmodule KarroakeWeb.RequestController do
   end
 
   def new(conn, _params) do
+    changeset = KaraokeList.change_request(%Request{})
+    render_new(conn, changeset)
+  end
+
+  defp render_new(conn,  changeset) do
     pastsongs = get_past_songs()
     setsongs = KaraokeList.list_set_songs(:unplayed)
-    changeset = KaraokeList.change_request(%Request{})
     songs = KaraokeList.list_songs()
     |> Enum.map(fn song -> [key: song.artist <> " - " <> song.song, value: song.id] end)
     render(conn, "new.html", changeset: changeset, songs: songs, setsongs: setsongs, pastsongs: pastsongs)
@@ -31,7 +35,7 @@ defmodule KarroakeWeb.RequestController do
         |> render("show.html", request: KaraokeList.preload_song(request))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        render_new(conn, changeset)
     end
   end
 
@@ -43,5 +47,5 @@ defmodule KarroakeWeb.RequestController do
   #   |> put_flash(:info, "Request deleted successfully.")
   #   |> redirect(to: Routes.request_path(conn, :index))
   # end
-  
+
 end

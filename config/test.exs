@@ -2,8 +2,8 @@ import Config
 
 # Configure your database
 config :karroake, Karroake.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: "sol",
+  password: "sofla123",
   database: "karroake_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
@@ -15,4 +15,4 @@ config :karroake, KarroakeWeb.Endpoint,
   server: false
 
 # Print only warnings and errors during test
-config :logger, level: :warn
+config :logger, level: :warn 

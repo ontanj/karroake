@@ -6,9 +6,9 @@ defmodule Karroake.KaraokeListTest do
   describe "songs" do
     alias Karroake.KaraokeList.Song
 
-    @valid_attrs %{artist: "some artist", song: "some song"}
-    @update_attrs %{artist: "some updated artist", song: "some updated song"}
-    @invalid_attrs %{artist: nil, song: nil}
+    @valid_attrs %{id: 1, artist: "some artist", song: "some song"}
+    @update_attrs %{id: 2, artist: "some updated artist", song: "some updated song"}
+    @invalid_attrs %{id: nil, artist: nil, song: nil}
 
     def song_fixture(attrs \\ %{}) do
       {:ok, song} =
@@ -66,23 +66,25 @@ defmodule Karroake.KaraokeListTest do
 
   describe "requests" do
     alias Karroake.KaraokeList.Request
+    alias Karroake.KaraokeList.Song
 
     @valid_attrs %{firstname1: "some firstname1", firstname2: "some firstname2", firstname3: "some firstname3", in_set: true, secondname1: "some secondname1", secondname2: "some secondname2", secondname3: "some secondname3"}
-    @update_attrs %{firstname1: "some updated firstname1", firstname2: "some updated firstname2", firstname3: "some updated firstname3", in_set: false, secondname1: "some updated secondname1", secondname2: "some updated secondname2", secondname3: "some updated secondname3"}
     @invalid_attrs %{firstname1: nil, firstname2: nil, firstname3: nil, in_set: nil, secondname1: nil, secondname2: nil, secondname3: nil}
 
     def request_fixture(attrs \\ %{}) do
+      song = song_fixture()
+
       {:ok, request} =
         attrs
         |> Enum.into(@valid_attrs)
-        |> KaraokeList.create_request()
+        |> KaraokeList.create_request(song.id)
 
       request
     end
 
     test "list_requests/0 returns all requests" do
       request = request_fixture()
-      assert KaraokeList.list_requests() == [request]
+      assert KaraokeList.list_requests() == [Repo.preload(request, :song)]
     end
 
     test "get_request!/1 returns the request with given id" do
@@ -91,104 +93,19 @@ defmodule Karroake.KaraokeListTest do
     end
 
     test "create_request/1 with valid data creates a request" do
-      assert {:ok, %Request{} = request} = KaraokeList.create_request(@valid_attrs)
+      song_fixture()
+      assert {:ok, %Request{} = request} = KaraokeList.create_request(@valid_attrs, 1)
       assert request.firstname1 == "some firstname1"
       assert request.firstname2 == "some firstname2"
       assert request.firstname3 == "some firstname3"
-      assert request.in_set == true
       assert request.secondname1 == "some secondname1"
       assert request.secondname2 == "some secondname2"
       assert request.secondname3 == "some secondname3"
     end
 
     test "create_request/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = KaraokeList.create_request(@invalid_attrs)
-    end
-
-    test "update_request/2 with valid data updates the request" do
-      request = request_fixture()
-      assert {:ok, %Request{} = request} = KaraokeList.update_request(request, @update_attrs)
-      assert request.firstname1 == "some updated firstname1"
-      assert request.firstname2 == "some updated firstname2"
-      assert request.firstname3 == "some updated firstname3"
-      assert request.in_set == false
-      assert request.secondname1 == "some updated secondname1"
-      assert request.secondname2 == "some updated secondname2"
-      assert request.secondname3 == "some updated secondname3"
-    end
-
-    test "update_request/2 with invalid data returns error changeset" do
-      request = request_fixture()
-      assert {:error, %Ecto.Changeset{}} = KaraokeList.update_request(request, @invalid_attrs)
-      assert request == KaraokeList.get_request!(request.id)
-    end
-
-    test "delete_request/1 deletes the request" do
-      request = request_fixture()
-      assert {:ok, %Request{}} = KaraokeList.delete_request(request)
-      assert_raise Ecto.NoResultsError, fn -> KaraokeList.get_request!(request.id) end
-    end
-
-    test "change_request/1 returns a request changeset" do
-      request = request_fixture()
-      assert %Ecto.Changeset{} = KaraokeList.change_request(request)
-    end
-  end
-
-  describe "admin" do
-    alias Karroake.KaraokeList.Admin
-
-    @valid_attrs %{}
-    @update_attrs %{}
-    @invalid_attrs %{}
-
-    def admin_fixture(attrs \\ %{}) do
-      {:ok, admin} =
-        attrs
-        |> Enum.into(@valid_attrs)
-        |> KaraokeList.create_admin()
-
-      admin
-    end
-
-    test "list_admin/0 returns all admin" do
-      admin = admin_fixture()
-      assert KaraokeList.list_admin() == [admin]
-    end
-
-    test "get_admin!/1 returns the admin with given id" do
-      admin = admin_fixture()
-      assert KaraokeList.get_admin!(admin.id) == admin
-    end
-
-    test "create_admin/1 with valid data creates a admin" do
-      assert {:ok, %Admin{} = admin} = KaraokeList.create_admin(@valid_attrs)
-    end
-
-    test "create_admin/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = KaraokeList.create_admin(@invalid_attrs)
-    end
-
-    test "update_admin/2 with valid data updates the admin" do
-      admin = admin_fixture()
-      assert {:ok, %Admin{} = admin} = KaraokeList.update_admin(admin, @update_attrs)
-    end
-
-    test "update_admin/2 with invalid data returns error changeset" do
-      admin = admin_fixture()
-      assert {:error, %Ecto.Changeset{}} = KaraokeList.update_admin(admin, @invalid_attrs)
-      assert admin == KaraokeList.get_admin!(admin.id)
-    end
-
-    test "delete_admin/1 deletes the admin" do
-      admin = admin_fixture()
-      assert {:ok, %Admin{}} = KaraokeList.delete_admin(admin)
-      assert_raise Ecto.NoResultsError, fn -> KaraokeList.get_admin!(admin.id) end
-    end
-
-    test "change_admin/1 returns a admin changeset" do
-      admin = admin_fixture()
-      assert %Ecto.Changeset{} = KaraokeList.change_admin(admin)
+      song_fixture()
+      assert {:error, %Ecto.Changeset{}} = KaraokeList.create_request(@invalid_attrs, 1)
     end
   end
 end

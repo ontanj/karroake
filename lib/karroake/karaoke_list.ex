@@ -158,17 +158,19 @@ defmodule Karroake.KaraokeList do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_request(song_id, attrs) do
+  def create_request(attrs, song_id) when is_integer(song_id) do
     get_song!(song_id)
     |> Ecto.build_assoc(:requests)
     |> Request.changeset(attrs)
     |> Repo.insert()
   end
+  def create_request(attrs, song_id) when is_binary(song_id), do: create_request(attrs, String.to_integer(song_id))
   def create_request(attrs \\ %{})
-  def create_request(attrs = %{"song_id" => song_id}), do: create_request(song_id, attrs)
+  def create_request(attrs = %{"song_id" => song_id}), do: create_request(attrs, song_id)
   def create_request(attrs) do
     %Request{}
     |> Request.changeset(attrs)
+    |> Repo.insert
   end
 
   @doc """

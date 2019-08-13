@@ -22,6 +22,6 @@ defmodule Karroake.KaraokeList.Request do
   def changeset(request, attrs) do
     request
     |> cast(attrs, [:firstname1, :secondname1, :firstname2, :secondname2, :firstname3, :secondname3])
-    |> validate_required([:firstname1, :secondname1])
+    |> validate_required([:song_id, :firstname1, :secondname1])
   end
 end
