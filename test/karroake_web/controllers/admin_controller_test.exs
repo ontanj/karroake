@@ -3,6 +3,14 @@ defmodule KarroakeWeb.AdminControllerTest do
 
   alias Karroake.KaraokeList
 
+  @username Application.get_env(:karroake, :auth)[:username]
+  @password Application.get_env(:karroake, :auth)[:password]
+
+  defp using_basic_auth(conn, username, password) do
+    header_content = "Basic " <> Base.encode64("#{username}:#{password}")
+    conn |> put_req_header("authorization", header_content)
+  end
+
   def fixture(:admin) do
     {:ok, song} = KaraokeList.create_song(%{id: 1, artist: "Movits!", song: "Självantänd"})
     {:ok, request} = KaraokeList.create_request(%{firstname1: "Karl", secondname1: "Dal"}, song.id)
@@ -10,9 +18,17 @@ defmodule KarroakeWeb.AdminControllerTest do
   end
 
   describe "index" do
-    test "show admin list", %{conn: conn} do
-      conn = get(conn, Routes.admin_path(conn, :index))
+    test "show admin list with authentication", %{conn: conn} do
+      conn = conn
+      |> using_basic_auth(@username, @password)
+      |> get(Routes.admin_path(conn, :index))
       assert html_response(conn, 200) =~ "Nuvarande spellista"
+    end
+
+    test "show admin list without authentication", %{conn: conn} do
+      conn = conn
+      |> get(Routes.admin_path(conn, :index))
+      assert text_response(conn, 401) =~ "401 Unauthorized"
     end
   end
 

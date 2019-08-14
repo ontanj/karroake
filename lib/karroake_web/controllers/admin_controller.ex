@@ -3,6 +3,8 @@ defmodule KarroakeWeb.AdminController do
 
   alias Karroake.KaraokeList
 
+  plug BasicAuth, use_config: {:karroake, :auth}
+
   def index(conn, _params) do
     requested = KaraokeList.list_requests(:requested)
     queued = KaraokeList.list_set_songs()

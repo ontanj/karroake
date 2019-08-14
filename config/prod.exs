@@ -61,8 +61,10 @@ config :karroake, Karroake.Repo,
   ssl: true,
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
-config :karroake, KarroakeWeb.Router,
-  admin_route: System.get_env("ADMIN_ROUTE")
+config :karroake, :auth,
+  username: "admin",
+  password: System.get_env("AUTH_PASS"),
+  realm: "Admin Area"
 
 # Finally import the config/prod.secret.exs which loads secrets
 # and configuration from environment variables.
