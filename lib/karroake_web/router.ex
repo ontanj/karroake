@@ -24,6 +24,7 @@ defmodule KarroakeWeb.Router do
 
     get "/admin", AdminController, :index
     post "/admin", AdminController, :create
+    delete "/admin", AdminController, :delete
     post "/admin/played", AdminController, :played
     
   end

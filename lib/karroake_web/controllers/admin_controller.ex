@@ -38,6 +38,15 @@ defmodule KarroakeWeb.AdminController do
     end
     |> redirect(to: Routes.admin_path(conn, :index))
   end
+  
+  # delete all requests (and set songs)
+  def delete(conn, %{"id" => "all"}) do
+    KaraokeList.reset_requests
+
+    conn
+    |> put_flash(:info, "Alla förfrågningar har tagits bort.")
+    |> redirect(to: Routes.admin_path(conn, :index))
+  end
 
   # def delete(conn, %{"id" => id}) do
   #   admin = KaraokeList.get_admin!(id)

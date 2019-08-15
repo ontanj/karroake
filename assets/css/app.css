@@ -71,3 +71,8 @@
 button.small {
     padding: 0 1.5rem;
 }
+
+button.warning, a.button-link.warning {
+    background-color: red;
+    border-color: red;
+}

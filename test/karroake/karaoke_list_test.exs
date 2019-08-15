@@ -107,5 +107,10 @@ defmodule Karroake.KaraokeListTest do
       song_fixture()
       assert {:error, %Ecto.Changeset{}} = KaraokeList.create_request(@invalid_attrs, 1)
     end
+
+    test "clear_all deletes all requests" do
+      request_fixture()
+      assert {1, _} = KaraokeList.reset_requests()
+    end
   end
 end

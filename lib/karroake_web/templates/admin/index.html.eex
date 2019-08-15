@@ -1,4 +1,10 @@
-<h1>Nuvarande spellista</h1>
+<div class="horisontal-row">
+
+    <h1>Nuvarande spellista</h1>
+
+    <%= link "Nollställ", to: Routes.admin_path(@conn, :delete, id: "all"), data: [confirm: "Vill du verkligen ta bort alla förfrågningar?"], class: "button-link row-right warning", method: :delete %>
+
+</div>
 
 <table>
   <thead>

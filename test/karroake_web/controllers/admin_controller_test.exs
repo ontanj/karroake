@@ -88,7 +88,7 @@ defmodule KarroakeWeb.AdminControllerTest do
     end
   end
 
-  describe "update admin" do
+  describe "update set song" do
     setup [:create_set_songs]
 
     test "played song is moved to history", %{conn: conn, songs: [%{artist: artist1} | [ %{artist: artist2}] ], set_songs: [set_song1 | _]} do
@@ -115,17 +115,28 @@ defmodule KarroakeWeb.AdminControllerTest do
     end
   end
 
-  # describe "delete admin" do
-  #   setup [:create_admin]
+  describe "delete requests" do
+    setup [:create_requests]
 
-  #   test "deletes chosen admin", %{conn: conn, admin: admin} do
-  #     conn = delete(conn, Routes.admin_path(conn, :delete, admin))
-  #     assert redirected_to(conn) == Routes.admin_path(conn, :index)
-  #     assert_error_sent 404, fn ->
-  #       get(conn, Routes.admin_path(conn, :show, admin))
-  #     end
-  #   end
-  # end
+    test "-1 deletes all", %{conn: conn, songs: [ %{artist: artist} | _ ]} do
+      conn = conn
+      |> using_basic_auth(@username, @password)
+      |> delete(Routes.admin_path(conn, :delete), id: "all")
+      assert redirected_to(conn) == Routes.admin_path(conn, :index)
+
+      conn = get(conn, Routes.admin_path(conn, :index))
+      resp = html_response(conn, 200) 
+      assert resp =~ "tagits bort."
+      assert !String.contains?(resp, artist)
+    end
+    # test "deletes chosen admin", %{conn: conn, admin: admin} do
+    #   conn = delete(conn, Routes.admin_path(conn, :delete, admin))
+    #   assert redirected_to(conn) == Routes.admin_path(conn, :index)
+    #   assert_error_sent 404, fn ->
+    #     get(conn, Routes.admin_path(conn, :show, admin))
+    #   end
+    # end
+  end
 
   defp create_songs(_) do
     songs = [fixture(:song, 1), fixture(:song, 2)]

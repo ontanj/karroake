@@ -196,6 +196,11 @@ defmodule Karroake.KaraokeList do
   end
 
   @doc """
+  Deletes all requests (and set songs).
+  """
+  def reset_requests, do: Repo.delete_all(Request)
+
+  @doc """
   Returns an `%Ecto.Changeset{}` for tracking request changes.
 
   ## Examples
