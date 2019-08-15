@@ -147,6 +147,12 @@ defmodule Karroake.KaraokeList do
   def get_request!(id), do: Repo.get!(Request, id)
 
   @doc """
+  Get a single request.
+  Returns `%Request{}` or `nil` if not found.
+  """
+  def get_request(id), do: Repo.get(Request, id)
+
+  @doc """
   Creates a request.
 
   ## Examples
@@ -250,13 +256,19 @@ defmodule Karroake.KaraokeList do
   """
   def get_set_song!(id), do: Repo.get!(SetSong, id)
 
+  def get_set_song(id), do: Repo.get(SetSong, id)
+
   @doc """
   Creates a set song, for provided request_id.
   """
   def create_set_song(request_id) do
-    get_request!(request_id)
-    |> Ecto.build_assoc(:set_song)
-    |> Repo.insert
+    case get_request(request_id) do
+      nil -> {:error, :not_found}
+      request ->
+        request
+        |> Ecto.build_assoc(:set_song)
+        |> Repo.insert
+    end
   end
 
   @doc """
@@ -271,12 +283,14 @@ defmodule Karroake.KaraokeList do
       {:error, %Ecto.Changeset{}}
 
   """
+  def update_set_song(nil, _), do: {:error, :not_found}
   def update_set_song(%SetSong{} = song, attrs) do
     song
     |> SetSong.changeset(attrs)
     |> Repo.update()
   end
-  def update_set_song(song_id, attrs) when is_integer(song_id), do: get_set_song!(song_id) |> update_set_song(attrs)
+  def update_set_song(song_id, attrs) when is_integer(song_id) or is_binary(song_id),
+    do: get_set_song(song_id) |> update_set_song(attrs)
 
   @doc """
   Mark the set song as played.

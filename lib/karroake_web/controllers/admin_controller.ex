@@ -26,7 +26,6 @@ defmodule KarroakeWeb.AdminController do
 
   def played(conn, %{"setsong" => setsong_id}) do
     setsong_id
-    |> String.to_integer
     |> KaraokeList.played_set_song
     |> case do
       {:ok, _} ->

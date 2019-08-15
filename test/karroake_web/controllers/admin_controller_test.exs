@@ -11,10 +11,19 @@ defmodule KarroakeWeb.AdminControllerTest do
     conn |> put_req_header("authorization", header_content)
   end
 
-  def fixture(:admin) do
-    {:ok, song} = KaraokeList.create_song(%{id: 1, artist: "Movits!", song: "Självantänd"})
-    {:ok, request} = KaraokeList.create_request(%{firstname1: "Karl", secondname1: "Dal"}, song.id)
-    {:ok, _set_song} = KaraokeList.create_set_song(request.id)
+  def fixture(:song, id) do
+    sid = Integer.to_string(id)
+    {:ok, song} = KaraokeList.create_song(%{id: id, artist: "artist" <> sid, song: "låt" <> sid})
+    song
+  end
+  def fixture(:set_song, request_id) do
+    {:ok, set_song} = KaraokeList.create_set_song(request_id)
+    set_song
+  end
+  def fixture(:request, id, song_id) do
+    sid = Integer.to_string(id)
+    {:ok, request} = KaraokeList.create_request(%{firstname1: "singer" <> sid, secondname1: "singer" <> sid}, song_id)
+    request
   end
 
   describe "index" do
@@ -32,55 +41,79 @@ defmodule KarroakeWeb.AdminControllerTest do
     end
   end
 
-  # describe "new admin" do
-  #   test "renders form", %{conn: conn} do
-  #     conn = get(conn, Routes.admin_path(conn, :new))
-  #     assert html_response(conn, 200) =~ "New Admin"
-  #   end
-  # end
+  describe "make request a set song" do
+    setup [:create_requests]
+    test "approves when data is valid", %{conn: conn, requests: [request1 | _ ]} do
+      conn = conn
+      |> using_basic_auth(@username, @password)
+      |> post(Routes.admin_path(conn, :create), request: request1.id)
+      assert redirected_to(conn) == Routes.admin_path(conn, :index)
+      
+      conn = get(conn, Routes.admin_path(conn, :index))
+      assert html_response(conn, 200) =~ "tillagd"
+    end
 
-  # describe "create admin" do
-  #   test "redirects to show when data is valid", %{conn: conn} do
-  #     conn = post(conn, Routes.admin_path(conn, :create), admin: @create_attrs)
+    test "renders errors when data is invalid", %{conn: conn} do
+      conn = conn
+      |> using_basic_auth(@username, @password)
+      |> post(Routes.admin_path(conn, :create), request: -1)
+      assert redirected_to(conn) == Routes.admin_path(conn, :index)
 
-  #     assert %{id: id} = redirected_params(conn)
-  #     assert redirected_to(conn) == Routes.admin_path(conn, :show, id)
+      conn = get(conn, Routes.admin_path(conn, :index))
+      assert html_response(conn, 200) =~ "Något gick fel"
+    end
 
-  #     conn = get(conn, Routes.admin_path(conn, :show, id))
-  #     assert html_response(conn, 200) =~ "Show Admin"
-  #   end
+    test "fails without authentication", %{conn: conn, requests: [request1 | _ ]} do
+      conn = post(conn, Routes.admin_path(conn, :create), request: request1.id)
+      assert text_response(conn, 401) =~ "401 Unauthorized"
+    end
 
-  #   test "renders errors when data is invalid", %{conn: conn} do
-  #     conn = post(conn, Routes.admin_path(conn, :create), admin: @invalid_attrs)
-  #     assert html_response(conn, 200) =~ "New Admin"
-  #   end
-  # end
+    test "request is moved to setlist", %{conn: conn, songs: [ %{artist: artist1} | [ %{artist: artist2} ]], requests: [request1 | [request2 | _]]} do
+      conn = conn
+      |> using_basic_auth(@username, @password)
+      |> post(Routes.admin_path(conn, :create), request: request2.id)
 
-  # describe "edit admin" do
-  #   setup [:create_admin]
+      # check at admin page
+      conn = get(conn, Routes.admin_path(conn, :index))
+      resp = html_response(conn, 200)
+      |> String.split("Förfrågningar")
+      assert Enum.at(resp,0) =~ request2.firstname1
+      assert Enum.at(resp,1) =~ request1.firstname1
 
-  #   test "renders form for editing chosen admin", %{conn: conn, admin: admin} do
-  #     conn = get(conn, Routes.admin_path(conn, :edit, admin))
-  #     assert html_response(conn, 200) =~ "Edit Admin"
-  #   end
-  # end
+      # check at playlist page
+      conn = get(conn, Routes.request_path(conn, :index))
+      resp = html_response(conn, 200)
+      assert resp =~ artist2
+      assert !String.contains?(resp, artist1)
+    end
+  end
 
-  # describe "update admin" do
-  #   setup [:create_admin]
+  describe "update admin" do
+    setup [:create_set_songs]
 
-  #   test "redirects when data is valid", %{conn: conn, admin: admin} do
-  #     conn = put(conn, Routes.admin_path(conn, :update, admin), admin: @update_attrs)
-  #     assert redirected_to(conn) == Routes.admin_path(conn, :show, admin)
+    test "played song is moved to history", %{conn: conn, songs: [%{artist: artist1} | [ %{artist: artist2}] ], set_songs: [set_song1 | _]} do
+      conn = conn
+      |> using_basic_auth(@username, @password)
+      |> post(Routes.admin_path(conn, :played), setsong: set_song1.id)
+      assert redirected_to(conn) == Routes.admin_path(conn, :index)
 
-  #     conn = get(conn, Routes.admin_path(conn, :show, admin))
-  #     assert html_response(conn, 200)
-  #   end
+      conn = get(conn, Routes.request_path(conn, :index))
+      [history, future] = html_response(conn, 200)
+      |> String.split("Kommande låtar:")
+      assert history =~ artist1
+      assert future =~ artist2
+    end
 
-  #   test "renders errors when data is invalid", %{conn: conn, admin: admin} do
-  #     conn = put(conn, Routes.admin_path(conn, :update, admin), admin: @invalid_attrs)
-  #     assert html_response(conn, 200) =~ "Edit Admin"
-  #   end
-  # end
+    test "renders errors when data is invalid", %{conn: conn} do
+      conn = conn
+      |> using_basic_auth(@username, @password)
+      |> post(Routes.admin_path(conn, :played), setsong: -1)
+      assert redirected_to(conn) == Routes.admin_path(conn, :index)
+
+      conn = get(conn, Routes.admin_path(conn, :index))
+      assert html_response(conn, 200) =~ "Något gick fel"
+    end
+  end
 
   # describe "delete admin" do
   #   setup [:create_admin]
@@ -94,8 +127,20 @@ defmodule KarroakeWeb.AdminControllerTest do
   #   end
   # end
 
-  # defp create_admin(_) do
-  #   admin = fixture(:admin)
-  #   {:ok, admin: admin}
-  # end
+  defp create_songs(_) do
+    songs = [fixture(:song, 1), fixture(:song, 2)]
+    {:ok, songs: songs}
+  end
+
+  defp create_requests(_) do
+    {:ok, songs: songs = [ %{id: songid1}, %{id: songid2} ]} = create_songs(nil)
+    requests = [fixture(:request, 1, songid1), fixture(:request, 2, songid2)]
+    {:ok, songs: songs, requests: requests}
+  end
+
+  defp create_set_songs(_) do
+    {:ok, songs: songs, requests: requests = [ %{id: reqid1}, %{id: reqid2} ]} = create_requests(nil)
+    set_songs = [fixture(:set_song, reqid1), fixture(:set_song, reqid2)]
+    {:ok, songs: songs, requests: requests, set_songs: set_songs}
+  end
 end

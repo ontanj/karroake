@@ -53,9 +53,4 @@ defmodule KarroakeWeb.RequestControllerTest do
     song = fixture(:song)
     {:ok, song: song}
   end
-  defp create_request(_) do
-    fixture(:song)
-    request = fixture(:request)
-    {:ok, request: request}
-  end
 end
