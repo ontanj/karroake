@@ -1,3 +1,9 @@
-<%= render "list.html", assigns %>
+<div class="horisontal-row">
 
-<span><%= link "Jag vill också sjunga!", to: Routes.request_path(@conn, :new), class: "button-link" %></span>
+    <h1>Här är spellistan just nu</h1>
+
+    <%= link "Jag vill också sjunga!", to: Routes.request_path(@conn, :new), class: "button-link row-right" %>
+
+</div>
+
+<%= render "list.html", assigns %>

@@ -1,5 +1,3 @@
-<h1>Här är spellistan just nu</h1>
-
 <h3>De senast spelade låtarna:</h3>
 <table>
   <thead>
@@ -16,7 +14,7 @@
     </tr>
 <% end %>
   </tbody>
-<table>
+</table>
 
 <h3>Kommande låtar:</h3>
 <table>

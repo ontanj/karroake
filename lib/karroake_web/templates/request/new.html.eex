@@ -2,4 +2,6 @@
 
 <%= render "form.html", Map.put(assigns, :action, Routes.request_path(@conn, :create)) %>
 
+<h1>Här är spellistan just nu</h1>
+
 <%= render "list.html", assigns %>
