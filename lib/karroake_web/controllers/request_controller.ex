@@ -4,9 +4,11 @@ defmodule KarroakeWeb.RequestController do
   alias Karroake.KaraokeList
   alias Karroake.KaraokeList.Request
 
+  @nbr_of_songs_in_history 5
+
   defp get_past_songs do
     past_songs = KaraokeList.list_set_songs(:played)
-    Enum.slice(past_songs, 0-min(10, length(past_songs))..-1)
+    Enum.slice(past_songs, 0-min(@nbr_of_songs_in_history, length(past_songs))..-1)
   end
 
   def index(conn, _params) do
