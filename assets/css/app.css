@@ -8,7 +8,7 @@
 
 .two-col .col1,
 .two-col .col2 {
-    width: 45%;
+    width: 35%;
 }
 
 .two-col .col1 {
@@ -58,4 +58,16 @@
 .horisontal-row .row-right {
     float: right;
     margin: 0 1rem 0 0;
+}
+
+#singer2 {
+    display: none;
+}
+
+#singer3 {
+    display: none;
+}
+
+button.small {
+    padding: 0 1.5rem;
 }

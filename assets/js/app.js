@@ -15,3 +15,13 @@ import "phoenix_html"
 //
 // Local files can be imported directly using relative paths, for example:
 // import socket from "./socket"
+
+// show field for singer 2 and 3 upon button press
+document.getElementById("singer2button").addEventListener("click", function(){
+    document.getElementById("singer2").style.display = "block";
+    this.style.visibility = "hidden";
+}); 
+document.getElementById("singer3button").addEventListener("click", function(){
+    document.getElementById("singer3").style.display = "block";
+    this.style.visibility = "hidden";
+}); 

@@ -11,7 +11,7 @@
   <%= error_tag f, :song_id %>
     </div>
 
-    <div class="two-col">
+    <div class="two-col" id="singer1">
       <div class="col1">
   <%= label f, :firstname1, "Förnamn" %>
   <%= text_input f, :firstname1 %>
@@ -22,9 +22,13 @@
   <%= text_input f, :secondname1 %>
   <%= error_tag f, :secondname1 %>
       </div>
+      <div class="col3">
+        <label style="visibility:hidden">Fill</label>
+        <button type="button" id="singer2button" class="singerButton small">+</button>
+      </div>
     </div>
     
-    <div class="two-col">
+    <div class="two-col" id="singer2">
       <div class="col1">
   <%= label f, :firstname2, "Förnamn" %>
   <%= text_input f, :firstname2 %>
@@ -35,9 +39,13 @@
   <%= text_input f, :secondname2 %>
   <%= error_tag f, :secondname2 %>
       </div>
+      <div class="col3">
+        <label style="visibility:hidden">Fill</label>
+        <button type="button" id="singer3button" class="singerButton small">+</button>
+      </div>
     </div>
     
-    <div class="two-col">
+    <div class="two-col" id="singer3">
       <div class="col1">
   <%= label f, :firstname3, "Förnamn" %>
   <%= text_input f, :firstname3 %>
