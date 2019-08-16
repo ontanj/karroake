@@ -98,8 +98,8 @@ defmodule KarroakeWeb.AdminControllerTest do
       assert redirected_to(conn) == Routes.admin_path(conn, :index)
 
       conn = get(conn, Routes.request_path(conn, :index))
-      [history, future] = html_response(conn, 200)
-      |> String.split("Kommande låtar:")
+      [future, history] = html_response(conn, 200)
+      |> String.split("De senaste låtarna:")
       assert history =~ artist1
       assert future =~ artist2
     end

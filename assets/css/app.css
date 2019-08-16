@@ -76,3 +76,16 @@ button.warning, a.button-link.warning {
     background-color: red;
     border-color: red;
 }
+
+.button-link.big {
+    font-size: 1.3rem;
+    height: 5rem;
+    padding: 0 4rem;
+    line-height: 5rem;
+    letter-spacing: .2rem;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    max-width: 40rem;
+    margin-bottom: 2rem;
+}

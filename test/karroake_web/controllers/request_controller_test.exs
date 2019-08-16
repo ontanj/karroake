@@ -18,7 +18,7 @@ defmodule KarroakeWeb.RequestControllerTest do
   describe "index" do
     test "lists all requests", %{conn: conn} do
       conn = get(conn, Routes.request_path(conn, :index))
-      assert html_response(conn, 200) =~ "Här är spellistan just nu"
+      assert html_response(conn, 200) =~ "Kommande låtar:"
     end
   end
 
