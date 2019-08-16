@@ -15,7 +15,7 @@ defmodule Karroake.KaraokeList.Request do
     belongs_to :song, Song
     has_one :set_song, SetSong
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   @doc false

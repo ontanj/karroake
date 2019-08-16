@@ -38,6 +38,7 @@
       <th>Artist</th>
       <th>Låt</th>
       <th>Sångare</th>
+      <th>Tidpunkt</th>
       <td></td>
     </tr>
 <%= for request <- @requested do %>
@@ -45,6 +46,7 @@
       <td><%= request.song.artist %></td>
       <td><%= request.song.song %></td>
       <td><%= all_singers(request, ", ") %></td>
+      <td><%= request.inserted_at |> get_time %></td>
       <td>
         <%= button "Lägg till", to: Routes.admin_path(@conn, :create, [request: request]) %>
       </td>

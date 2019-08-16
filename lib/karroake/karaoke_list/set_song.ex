@@ -8,7 +8,7 @@ defmodule Karroake.KaraokeList.SetSong do
     field :played, :boolean, default: false
     belongs_to :request, Request
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   @doc false

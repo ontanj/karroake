@@ -10,7 +10,7 @@ defmodule Karroake.KaraokeList.Song do
     field :song, :string
     has_many :requests, Request
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   @doc false
