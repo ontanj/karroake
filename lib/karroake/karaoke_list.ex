@@ -234,7 +234,7 @@ defmodule Karroake.KaraokeList do
     SetSong
     |> preload([request: ^preload(Request, :song)])
     |> where(played: true)
-    |> order_by(:id)
+    |> order_by(:updated_at)
     |> Repo.all
   end
   def list_set_songs(:unplayed) do

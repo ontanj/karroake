@@ -7,8 +7,9 @@ defmodule KarroakeWeb.AdminController do
 
   def index(conn, _params) do
     requested = KaraokeList.list_requests(:requested)
-    queued = KaraokeList.list_set_songs()
-    render(conn, "index.html", requested: requested, queued: queued)
+    queued = KaraokeList.list_set_songs(:unplayed)
+    played = KaraokeList.list_set_songs(:played)
+    render(conn, "index.html", requested: requested, queued: played ++ queued)
   end
 
   def create(conn, %{"request" => request_id}) do
