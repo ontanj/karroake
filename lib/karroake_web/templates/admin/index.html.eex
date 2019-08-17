@@ -2,7 +2,7 @@
 
     <h1>Nuvarande spellista</h1>
 
-    <%= link "Nollställ", to: Routes.admin_path(@conn, :delete, id: "all"), data: [confirm: "Vill du verkligen ta bort alla förfrågningar?"], class: "button-link row-right warning", method: :delete %>
+    <%= link "Nollställ", to: Routes.admin_path(@conn, :delete, request: "all"), data: [confirm: "Vill du verkligen ta bort alla förfrågningar?"], class: "button-link row-right warning", method: :delete %>
 
 </div>
 
@@ -40,6 +40,7 @@
       <th>Sångare</th>
       <th>Tidpunkt</th>
       <td></td>
+      <td></td>
     </tr>
 <%= for request <- @requested do %>
     <tr>
@@ -49,6 +50,9 @@
       <td><%= request.inserted_at |> get_time %></td>
       <td>
         <%= button "Lägg till", to: Routes.admin_path(@conn, :create, [request: request]) %>
+      </td>
+      <td>
+        <%= button "X", to: Routes.admin_path(@conn, :delete, [request: request]), class: "warning thin", data: [confirm: "Är du säker på att du vill ta bort förfrågningen?"], method: :delete %>
       </td>
     </tr>
 <% end %>
