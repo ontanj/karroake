@@ -9,8 +9,9 @@
 <table>
   <thead>
     <tr>
-      <th>Artist</th>
+      <th>ID</th>
       <th>Låt</th>
+      <th>Artist</th>
       <th>Sångare</th>
       <th></th>
     </tr>
@@ -18,13 +19,17 @@
   <tbody>
 <%= for queue <- @queued do %>
     <tr>
-      <td><%= queue.request.song.artist %></td>
+      <td><%= if !queue.played do %>
+        <%= queue.request.song.id %>
+        <% end %>
+      </td>
       <td><%= queue.request.song.song %></td>
+      <td><%= queue.request.song.artist %></td>
       <td><%= all_singers(queue.request, ", ") %></td>
-      <th><%= if !queue.played do %>
+      <td><%= if !queue.played do %>
         <%= button "Spelad", to: Routes.admin_path(@conn, :played, [setsong: queue]), method: :post %>
         <% end %>
-      </th>
+      </td>
     </tr>
 <% end %>
   </tbody>
@@ -35,8 +40,8 @@
 <table>
   <thead>
     <tr>
-      <th>Artist</th>
       <th>Låt</th>
+      <th>Artist</th>
       <th>Sångare</th>
       <th>Tidpunkt</th>
       <td></td>
@@ -44,8 +49,8 @@
     </tr>
 <%= for request <- @requested do %>
     <tr>
-      <td><%= request.song.artist %></td>
       <td><%= request.song.song %></td>
+      <td><%= request.song.artist %></td>
       <td><%= all_singers(request, ", ") %></td>
       <td><%= request.inserted_at |> get_time %></td>
       <td>
