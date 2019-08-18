@@ -10,11 +10,10 @@ import Config
 # which you should run after static files are built and
 # before starting your production server.
 config :karroake, KarroakeWeb.Endpoint,
-  url: [scheme: "https", host: "karroake.herokuapp.com", port: 443],
+  url: [scheme: "http", host: "karaoke.karroake.com", port: 80],
   cache_static_manifest: "priv/static/cache_manifest.json",
   load_from_system_env: true,
   http: [:inet6, port: System.get_env("PORT")],
-  force_ssl: [rewrite_on: [:x_forwarded_proto]],
   secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE")
   
 
