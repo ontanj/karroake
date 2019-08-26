@@ -1,20 +1,8 @@
-# Script for populating the database. You can run it as:
-#
-#     mix run priv/repo/seeds.exs
-#
-# Inside the script, you can read and write to any of your
-# repositories directly:
-#
-#     Karroake.Repo.insert!(%Karroake.SomeSchema{})
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
-
 Karroake.Repo.insert!(%Karroake.KaraokeList.Song{id: 1, artist: "Abba", song: "Dancing Queen"})
 Karroake.Repo.insert!(%Karroake.KaraokeList.Song{id: 2, artist: "Abba", song: "Gimme!"})
 Karroake.Repo.insert!(%Karroake.KaraokeList.Song{id: 98, artist: "Ace of Base", song: "All that she wants"})
 Karroake.Repo.insert!(%Karroake.KaraokeList.Song{id: 3, artist: "AC/DC", song: "Highway to Hell"})
-Karroake.Repo.insert!(%Karroake.KaraokeList.Song{id: 119, artist: "A-ha", song: "Take on me"})
+Karroake.Repo.insert!(%Karroake.KaraokeList.Song{id: 119, artist: "a-ha", song: "Take on me"})
 Karroake.Repo.insert!(%Karroake.KaraokeList.Song{id: 125, artist: "Alanis Morissette", song: "Ironic"})
 Karroake.Repo.insert!(%Karroake.KaraokeList.Song{id: 124, artist: "Alice Cooper", song: "Poison"})
 Karroake.Repo.insert!(%Karroake.KaraokeList.Song{id: 136, artist: "Amy Winehouse", song: "Valerie"})
@@ -98,7 +86,7 @@ Karroake.Repo.insert!(%Karroake.KaraokeList.Song{id: 37, artist: "Marvin Gaye", 
 Karroake.Repo.insert!(%Karroake.KaraokeList.Song{id: 103, artist: "Marvin Gaye", song: "Sexual Healing"})
 Karroake.Repo.insert!(%Karroake.KaraokeList.Song{id: 133, artist: "Mauro Scocco", song: "Sarah"})
 Karroake.Repo.insert!(%Karroake.KaraokeList.Song{id: 38, artist: "Michael Jackson", song: "Billie Jean"})
-Karroake.Repo.insert!(%Karroake.KaraokeList.Song{id: 39, artist: "Michael Jackson", song: "P"})
+Karroake.Repo.insert!(%Karroake.KaraokeList.Song{id: 39, artist: "Michael Jackson", song: "P.Y.T"})
 Karroake.Repo.insert!(%Karroake.KaraokeList.Song{id: 86, artist: "Michael Sembello", song: "Maniac"})
 Karroake.Repo.insert!(%Karroake.KaraokeList.Song{id: 139, artist: "Moulin Rouge", song: "Come what may"})
 Karroake.Repo.insert!(%Karroake.KaraokeList.Song{id: 130, artist: "Nanne Grönvall", song: "Avundsjuk"})

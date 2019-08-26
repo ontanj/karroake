@@ -4,6 +4,7 @@
     <tr>
       <th>Artist</th>
       <th>Låt</th>
+      <th>ID</th>
     </tr>
   </thead>
   <tbody>
@@ -11,6 +12,7 @@
     <tr>
       <td><%= song.request.song.artist %></td>
       <td><%= song.request.song.song %></td>
+      <td><%= song.request.id %></td>
     </tr>
 <% end %>
   </tbody>

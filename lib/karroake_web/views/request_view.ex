@@ -1,6 +1,18 @@
 defmodule KarroakeWeb.RequestView do
   use KarroakeWeb, :view
 
+  @doc """
+  Get a string with all singers separated by separator.
+  """
+  def all_singers(request, separator) do
+    name_string = for pos <- 1..3 do
+      singer_name(request, pos)
+    end
+    |> Enum.filter(fn x -> !is_nil(x) end)
+    |> List.foldl("", fn x, acc -> acc <> x <> separator end)
+    String.slice(name_string, 0, String.length(name_string)- String.length(separator))
+  end
+
   def singer_name(request, 1) do
     request.firstname1 <> " " <> request.secondname1
   end

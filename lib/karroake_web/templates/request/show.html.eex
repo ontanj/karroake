@@ -3,18 +3,23 @@
 <ul>
 
   <li>
-    <strong>Sångare</strong><br>
-    <%= singer_name(@request, 1) %><br>
-    <%= singer_name(@request, 2) %><br>
-    <%= singer_name(@request, 3) %>
+    <strong>Sångare</strong>:
+    <%= all_singers(@request, ", ") %>
   </li>
 
   <li>
-    <strong>Låt</strong><br>
+    <strong>Låt</strong>:
     <%= @request.song.artist <> " - " <> @request.song.song %>
   </li>
 
+  <li>
+    <strong>ID</strong>:
+    <%= @request.id %>
+  </li>
+
 </ul>
+
+<p>Kom ihåg ditt ID för att se när det är din tur i spellistan.</p>
 
 <%= link "Ta mig till spellistan!", to: Routes.request_path(@conn, :index), class: "button-link" %>
 
