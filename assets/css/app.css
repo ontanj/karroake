@@ -93,3 +93,19 @@ button.big, .button-link.big {
 button.thin, .button-link.thin {
     padding: 0 1.2rem;
 }
+
+header {
+    background-color: #000;
+    border-bottom: 0;
+}
+
+header img {
+    padding-bottom: 3rem;
+    padding-top: 3rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body {
+    margin: 0;
+}
