@@ -109,3 +109,14 @@ header img {
 body {
     margin: 0;
 }
+
+main {
+    margin-bottom: 2rem;
+}
+
+footer {
+    color: white;
+    background-color: #111;
+    padding: 1.5rem;
+    margin-top: 4rem;
+}
