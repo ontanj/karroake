@@ -19,10 +19,7 @@
   <tbody>
 <%= for queue <- @queued do %>
     <tr>
-      <td><%= if !queue.played do %>
-        <%= queue.request.song.id %>
-        <% end %>
-      </td>
+      <td><%= queue.request.song.id %></td>
       <td><%= queue.request.song.song %></td>
       <td><%= queue.request.song.artist %></td>
       <td><%= all_singers(queue.request, ", ") %></td>
