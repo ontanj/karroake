@@ -119,4 +119,10 @@ footer {
     background-color: #111;
     padding: 1.5rem;
     margin-top: 4rem;
+    font-size: small;
+}
+
+footer a {
+    text-decoration: underline;
+    color: inherit;
 }

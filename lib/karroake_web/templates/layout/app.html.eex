@@ -20,7 +20,7 @@
     </main>
     <footer>
       <section class='container'>
-        Applikationen skriven av Anton Jeppsson. Se mer på <a href='https://github.com/ontanj/karroake'>GitHub</a>.
+        Applikationen skapad av <a href='https://www.linkedin.com/in/ontanj'> Anton Jeppsson</a>. Se mer på <a href='https://github.com/ontanj/karroake'>GitHub</a>.
       </section>
     </footer>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
