@@ -141,3 +141,7 @@ Karroake.Repo.insert!(%Karroake.KaraokeList.Song{id: 68, artist: "Whitney Housto
 Karroake.Repo.insert!(%Karroake.KaraokeList.Song{id: 69, artist: "Whitney Houston", song: "I wanna dance with somebody"})
 Karroake.Repo.insert!(%Karroake.KaraokeList.Song{id: 116, artist: "Whitney Houston", song: "I Will always love you"})
 Karroake.Repo.insert!(%Karroake.KaraokeList.Song{id: 70, artist: "Zara Larsson", song: "Lush Life"})
+Karroake.Repo.insert!(%Karroake.KaraokeList.Song{id: 144, artist: "Barbados", song: "Kom hem"})
+Karroake.Repo.insert!(%Karroake.KaraokeList.Song{id: 145, artist: "David Bowie", song: "Life on Mars"})
+Karroake.Repo.insert!(%Karroake.KaraokeList.Song{id: 146, artist: "No doubt", song: "Don't speak"})
+
