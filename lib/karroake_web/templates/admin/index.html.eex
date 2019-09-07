@@ -2,35 +2,62 @@
 
     <h1>Nuvarande spellista</h1>
 
-    <%= link "Nollställ", to: Routes.admin_path(@conn, :delete, request: "all"), data: [confirm: "Vill du verkligen ta bort alla förfrågningar?"], class: "button-link row-right warning", method: :delete %>
+    <%= link "Nollställ", to: Routes.request_path(@conn, :delete, request: "all"), data: [confirm: "Vill du verkligen ta bort alla förfrågningar?"], class: "button-link row-right warning", method: :delete %>
 
 </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Låt</th>
-      <th>Artist</th>
-      <th>Sångare</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for queue <- @queued do %>
-    <tr>
-      <td><%= queue.request.song.id %></td>
-      <td><%= queue.request.song.song %></td>
-      <td><%= queue.request.song.artist %></td>
-      <td><%= all_singers(queue.request, ", ") %></td>
-      <td><%= if !queue.played do %>
-        <%= button "Spelad", to: Routes.admin_path(@conn, :played, [setsong: queue]), method: :post %>
-        <% end %>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+<div class='horisontal-row'>
+  <div id='queue'>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Låt</th>
+          <th>Artist</th>
+          <th>Sångare</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+    <%= for queue <- @queued do %>
+        <tr>
+          <td><%= queue.request.song.id %></td>
+          <td><%= queue.request.song.song %></td>
+          <td><%= queue.request.song.artist %></td>
+          <td><%= all_singers(queue.request, ", ") %></td>
+          <td>
+            <%= button "Spelad", to: Routes.admin_path(@conn, :played, [setsong: queue]), method: :post %>
+            <%= button "Ta bort", to: Routes.admin_path(@conn, :delete, [setsong: queue]), method: :delete, class: "warning", data: [confirm: "Vill du verkligen ta bort låten från spellistan?"] %>
+          </td>
+        </tr>
+    <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div id='played'>
+  <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Låt</th>
+          <th>Artist</th>
+          <th>Sångare</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+    <%= for queue <- @played do %>
+        <tr>
+          <td><%= queue.request.song.id %></td>
+          <td><%= queue.request.song.song %></td>
+          <td><%= queue.request.song.artist %></td>
+          <td><%= all_singers(queue.request, ", ") %></td>
+          <td><%= button "Ospelad", to: Routes.admin_path(@conn, :unplayed, [setsong: queue]), method: :post %></td>
+        </tr>
+    <% end %>
+      </tbody>
+    </table>
+  </div>
 
 <h1>Förfrågningar</h1>
 
@@ -54,7 +81,7 @@
         <%= button "Lägg till", to: Routes.admin_path(@conn, :create, [request: request]) %>
       </td>
       <td>
-        <%= button "X", to: Routes.admin_path(@conn, :delete, [request: request]), class: "warning thin", data: [confirm: "Är du säker på att du vill ta bort förfrågningen?"], method: :delete %>
+        <%= button "X", to: Routes.request_path(@conn, :delete, [request: request]), class: "warning thin", data: [confirm: "Är du säker på att du vill ta bort förfrågningen?"], method: :delete %>
       </td>
     </tr>
 <% end %>

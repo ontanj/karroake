@@ -126,3 +126,11 @@ footer a {
     text-decoration: underline;
     color: inherit;
 }
+
+#queue {
+    max-width: 49%;
+}
+
+#played {
+    max-width: 49%;
+}

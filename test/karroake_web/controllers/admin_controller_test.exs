@@ -115,32 +115,28 @@ defmodule KarroakeWeb.AdminControllerTest do
     end
   end
 
-  describe "delete requests" do
-    setup [:create_requests]
+  describe "delete set song" do
+    setup [:create_set_songs]
 
-    test "passing all deletes all", %{conn: conn, songs: [ %{artist: artist} | _ ]} do
+    test "delete one set song", %{conn: conn, songs: [%{artist: artist1} | [ %{artist: artist2}] ], set_songs: [set_song1 | _]} do
       conn = conn
       |> using_basic_auth(@username, @password)
-      |> delete(Routes.admin_path(conn, :delete), request: "all")
+      |> delete(Routes.admin_path(conn, :delete), setsong: set_song1.id)
       assert redirected_to(conn) == Routes.admin_path(conn, :index)
 
       conn = get(conn, Routes.admin_path(conn, :index))
-      resp = html_response(conn, 200) 
-      assert resp =~ "tagits bort."
-      assert !String.contains?(resp, artist)
+      [setsongs, requests] = html_response(conn, 200)
+      |> String.split("Förfrågningar")
+      assert setsongs =~ "Låten har tagits bort från spellistan."
+      assert setsongs =~ artist2
+      assert requests =~ artist1
     end
-    test "deletes chosen request", %{conn: conn, requests: [ %{id: id1, firstname1: firstname1} | [ %{firstname1: firstname2} | _ ] ] } do
-      conn = conn
-      |> using_basic_auth(@username, @password)
-      |> delete(Routes.admin_path(conn, :delete), request: id1)
-      assert redirected_to(conn) == Routes.admin_path(conn, :index)
 
-      conn = get(conn, Routes.admin_path(conn, :index))
-      resp = html_response(conn, 200)
-      assert resp =~ "Förfrågningen har tagits bort."
-      assert !String.contains?(resp, firstname1)
-      assert resp =~ firstname2
+    test "fails without authentication", %{conn: conn, set_songs: [set_song1 | _ ]} do
+      conn = delete(conn, Routes.admin_path(conn, :create), setsong: set_song1.id)
+      assert text_response(conn, 401) =~ "401 Unauthorized"
     end
+
   end
 
   defp create_songs(_) do

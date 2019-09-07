@@ -302,4 +302,25 @@ defmodule Karroake.KaraokeList do
   """
   def played_set_song(song), do: update_set_song(song, %{played: true})
 
+  @doc """
+  Mark the set song as unplayed.
+  """
+  def unplayed_set_song(song), do: update_set_song(song, %{played: false})
+
+  @doc """
+  Deletes a set song.
+
+  ## Examples
+
+      iex> delete_set_song(set_song)
+      {:ok, %Request{}}
+
+      iex> delete_set_song(set_song)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_set_song(%SetSong{} = set_song) do
+    Repo.delete(set_song)
+  end
+
 end

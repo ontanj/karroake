@@ -13,6 +13,10 @@ defmodule KarroakeWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :authenticated do
+    plug BasicAuth, use_config: {:karroake, :auth}
+  end
+
   scope "/", KarroakeWeb do
     pipe_through :browser
 
@@ -22,10 +26,16 @@ defmodule KarroakeWeb.Router do
     post "/sjung", RequestController, :create
     get "/spellista", RequestController, :index
 
-    get "/admin", AdminController, :index
-    post "/admin", AdminController, :create
-    delete "/admin", AdminController, :delete
-    post "/admin/played", AdminController, :played
+    scope "/" do
+      pipe_through :authenticated
+
+      delete "/request", RequestController, :delete
+      get "/admin", AdminController, :index
+      post "/admin", AdminController, :create
+      delete "/admin", AdminController, :delete
+      post "/admin/played", AdminController, :played
+      post "/admin/unplayed", AdminController, :unplayed
+    end
     
   end
 

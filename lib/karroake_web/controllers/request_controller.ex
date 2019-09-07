@@ -41,13 +41,20 @@ defmodule KarroakeWeb.RequestController do
     end
   end
 
-  # def delete(conn, %{"id" => id}) do
-  #   request = KaraokeList.get_request!(id)
-  #   {:ok, _request} = KaraokeList.delete_request(request)
+  def delete(conn, %{"request" => "all"}) do
+    KaraokeList.reset_requests
 
-  #   conn
-  #   |> put_flash(:info, "Request deleted successfully.")
-  #   |> redirect(to: Routes.request_path(conn, :index))
-  # end
+    conn
+    |> put_flash(:info, "Alla förfrågningar har tagits bort.")
+    |> redirect(to: Routes.admin_path(conn, :index))
+  end
+  def delete(conn, %{"request" => id}) do
+    admin = KaraokeList.get_request!(id)
+    {:ok, _request} = KaraokeList.delete_request(admin)
+
+    conn
+    |> put_flash(:info, "Förfrågningen har tagits bort.")
+    |> redirect(to: Routes.admin_path(conn, :index))
+  end
 
 end
