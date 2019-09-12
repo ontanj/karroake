@@ -127,10 +127,6 @@ footer a {
     color: inherit;
 }
 
-#queue {
-    max-width: 49%;
-}
-
-#played {
-    max-width: 49%;
+section {
+    margin-bottom: 5rem;
 }
