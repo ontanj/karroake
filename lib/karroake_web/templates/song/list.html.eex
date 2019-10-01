@@ -1,0 +1,18 @@
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Artist</th>
+      <th>Låt</th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for song <- @songs do %>
+    <tr>
+      <td><%= song.id %></td>
+      <td><%= song.artist %></td>
+      <td><%= song.song %></td>
+    </tr>
+<% end %>
+  </tbody>
+</table>

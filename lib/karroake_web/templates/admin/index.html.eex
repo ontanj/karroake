@@ -5,6 +5,8 @@
 
     <%= link "Nollställ", to: Routes.request_path(@conn, :delete, request: "all"), data: [confirm: "Vill du verkligen ta bort alla förfrågningar?"], class: "button-link row-right warning", method: :delete %>
 
+    <%= link "Ny låt", to: Routes.song_path(@conn, :new), class: "button-link row-right" %>
+
   </div>
 
   <table>

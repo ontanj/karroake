@@ -26,6 +26,7 @@ defmodule KarroakeWeb.RequestController do
     pastsongs = get_past_songs()
     setsongs = KaraokeList.list_set_songs(:unplayed)
     songs = KaraokeList.list_songs()
+    |> Enum.sort(fn song1, song2 -> String.downcase(song1.artist) < String.downcase(song2.artist) end)
     |> Enum.map(fn song -> [key: song.artist <> " - " <> song.song, value: song.id] end)
     render(conn, "new.html", changeset: changeset, songs: songs, setsongs: setsongs, pastsongs: pastsongs)
   end

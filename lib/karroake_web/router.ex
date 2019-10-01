@@ -29,6 +29,8 @@ defmodule KarroakeWeb.Router do
     scope "/" do
       pipe_through :authenticated
 
+      get "/song", SongController, :new
+      post "/song", SongController, :create
       delete "/request", RequestController, :delete
       get "/admin", AdminController, :index
       post "/admin", AdminController, :create

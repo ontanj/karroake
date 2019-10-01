@@ -1,0 +1,32 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Något gick snett! :(</p>
+    </div>
+  <% end %>
+
+
+
+    <div class="two-col">
+      <div class="col1 small">
+  <%= label f, :id, "ID" %>
+  <%= number_input f, :id %>
+  <%= error_tag f, :id %>
+      </div>
+      <div class="col2 big">
+  <%= label f, :artist, "Artist" %>
+  <%= text_input f, :artist %>
+  <%= error_tag f, :artist %>
+      </div>
+    </div>
+    <div>
+  <%= label f, :song, "Låt" %>
+  <%= text_input f, :song %>
+  <%= error_tag f, :song %>
+    </div>
+    <div class="horisontal-row">
+  <%= submit "Klar" %>
+
+  <%= link "Tillbaka", to: Routes.admin_path(@conn, :index), class: "button-link row-right" %>
+    </div>
+<% end %>

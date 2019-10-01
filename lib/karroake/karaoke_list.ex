@@ -19,9 +19,8 @@ defmodule Karroake.KaraokeList do
       [%Song{}, ...]
 
   """
-  def list_songs do
+  def list_songs() do
     Repo.all(Song)
-    |> Enum.sort(fn song1, song2 -> String.downcase(song1.artist) < String.downcase(song2.artist) end)
   end
 
   @doc """

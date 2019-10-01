@@ -18,5 +18,6 @@ defmodule Karroake.KaraokeList.Song do
     song
     |> cast(attrs, [:id, :artist, :song])
     |> validate_required([:id, :artist, :song])
+    |> unique_constraint(:id, name: :songs_pkey)
   end
 end
