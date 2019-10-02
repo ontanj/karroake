@@ -18,10 +18,10 @@ import "phoenix_html"
 
 // show field for singer 2 and 3 upon button press
 document.getElementById("singer2button").addEventListener("click", function(){
-    document.getElementById("singer2").style.display = "block";
+    document.getElementById("singer2").style.display = "flex";
     this.style.visibility = "hidden";
 }); 
 document.getElementById("singer3button").addEventListener("click", function(){
-    document.getElementById("singer3").style.display = "block";
+    document.getElementById("singer3").style.display = "flex";
     this.style.visibility = "hidden";
 }); 

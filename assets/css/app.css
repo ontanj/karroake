@@ -2,36 +2,33 @@
 
 @import "./phoenix.css";
 
-.two-col {
-    overflow: hidden;/* Makes this div contain its floats */
+.columns {
+    /*overflow: hidden;/* Makes this div contain its floats */
+    display: flex;
 }
 
-.two-col .col1,
-.two-col .col2 {
-    width: 35%;
-    min-width: 20rem;
-}
-
-.two-col .col1 {
+.columns .col {
+    flex: 1;
+    min-width: 8rem;
     float: left;
     margin: 0 20px 0 0;
 }
 
-.two-col .col2 {
-    float: left;
-    margin: 0 20px 0 0;
+.columns .col:last-child {
+    margin-right: 0;
 }
 
-.two-col .small {
-    width: 15%;
+.columns .small {
+    flex: 0.5;
+    max-width: 30rem;
     min-width: 5rem;
 }
 
-.two-col .big {
+.columns .big {
     width: 70%;
 }
 
-.button-link {
+.button-link, button {
     background-color: #0069d9;
     border: 0.1rem solid #0069d9;
     border-radius: .4rem;
@@ -42,6 +39,7 @@
     height: 3.8rem;
     letter-spacing: .1rem;
     line-height: 3.8rem;
+    margin-right: 1rem;
     padding: 0 3.0rem;
     text-align: center;
     text-decoration: none;
@@ -56,6 +54,14 @@
     outline: 0;
 }
 
+#singer2 {
+    display: none;
+}
+
+#singer3 {
+    display: none;
+}
+
 .horisontal-row {
     display: block;
     overflow: hidden;
@@ -67,15 +73,6 @@
 
 .horisontal-row .row-right {
     float: right;
-    margin: 0 1rem 0 0;
-}
-
-#singer2 {
-    display: none;
-}
-
-#singer3 {
-    display: none;
 }
 
 button.small {
@@ -102,6 +99,10 @@ button.big, .button-link.big {
 
 button.thin, .button-link.thin {
     padding: 0 1.2rem;
+}
+
+button:last-child, .button-link:last-child {
+    margin-right: 0;
 }
 
 header {
@@ -139,4 +140,8 @@ footer a {
 
 section {
     margin-bottom: 5rem;
+}
+
+select {
+    max-width: 100%;
 }

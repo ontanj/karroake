@@ -7,25 +7,27 @@
 
 
 
-    <div class="two-col">
-      <div class="col1 small">
+    <div class="columns">
+      <div class="col small">
   <%= label f, :id, "ID" %>
   <%= number_input f, :id %>
   <%= error_tag f, :id %>
       </div>
-      <div class="col2 big">
+      <div class="col">
   <%= label f, :artist, "Artist" %>
   <%= text_input f, :artist %>
   <%= error_tag f, :artist %>
       </div>
     </div>
-    <div>
+    <div class="columns">
+      <div class="col">
   <%= label f, :song, "Låt" %>
   <%= text_input f, :song %>
   <%= error_tag f, :song %>
+      </div>
     </div>
     <div class="horisontal-row">
-  <%= submit "Klar" %>
+  <%= submit "Lägg till" %>
 
   <%= link "Tillbaka", to: Routes.admin_path(@conn, :index), class: "button-link row-right" %>
     </div>

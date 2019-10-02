@@ -5,56 +5,62 @@
     </div>
   <% end %>
 
-    <div>
+    <div class="columns">
+      <div class="col">
   <%= label f, :song_id, "Välj låt:" %>
   <%= select f, :song_id, @songs %>
   <%= error_tag f, :song_id %>
+      </div>
     </div>
 
-    <div class="two-col" id="singer1">
-      <div class="col1">
+    <div class="columns" id="singer1">
+      <div class="col">
   <%= label f, :firstname1, "Förnamn" %>
   <%= text_input f, :firstname1 %>
   <%= error_tag f, :firstname1 %>
       </div>
-      <div class="col2">
+      <div class="col">
   <%= label f, :secondname1, "Efternamn" %>
   <%= text_input f, :secondname1 %>
   <%= error_tag f, :secondname1 %>
       </div>
-      <div class="col3">
+      <div>
         <label style="visibility:hidden">Fill</label>
         <button type="button" id="singer2button" class="singerButton small">+</button>
       </div>
     </div>
     
-    <div class="two-col" id="singer2">
-      <div class="col1">
+    <div class="columns" id="singer2">
+      <div class="col">
   <%= label f, :firstname2, "Förnamn" %>
   <%= text_input f, :firstname2 %>
   <%= error_tag f, :firstname2 %>
       </div>
-      <div class="col2">
+      <div class="col">
   <%= label f, :secondname2, "Efternamn" %>
   <%= text_input f, :secondname2 %>
   <%= error_tag f, :secondname2 %>
       </div>
-      <div class="col3">
+      <div>
         <label style="visibility:hidden">Fill</label>
         <button type="button" id="singer3button" class="singerButton small">+</button>
       </div>
     </div>
     
-    <div class="two-col" id="singer3">
-      <div class="col1">
+    <div class="columns" id="singer3">
+      <div class="col">
   <%= label f, :firstname3, "Förnamn" %>
   <%= text_input f, :firstname3 %>
   <%= error_tag f, :firstname3 %>
       </div>
-      <div class="col2">
+      <div class="col">
   <%= label f, :secondname3, "Efternamn" %>
   <%= text_input f, :secondname3 %>
   <%= error_tag f, :secondname3 %>
+      </div>
+      <div>
+        <label style="visibility:hidden">Fill</label>
+        <button style="visibility:hidden" class="singerButton small">+</button>
       </div>
     </div>
   <div>

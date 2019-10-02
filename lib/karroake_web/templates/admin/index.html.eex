@@ -3,9 +3,10 @@
 
     <h1>Nuvarande spellista</h1>
 
-    <%= link "Nollställ", to: Routes.request_path(@conn, :delete, request: "all"), data: [confirm: "Vill du verkligen ta bort alla förfrågningar?"], class: "button-link row-right warning", method: :delete %>
-
-    <%= link "Ny låt", to: Routes.song_path(@conn, :new), class: "button-link row-right" %>
+    <div class="row-right">
+      <%= link "Ny låt", to: Routes.song_path(@conn, :new), class: "button-link" %>
+      <%= link "Nollställ", to: Routes.request_path(@conn, :delete, request: "all"), data: [confirm: "Vill du verkligen ta bort alla förfrågningar?"], class: "button-link warning", method: :delete %>
+    </div>
 
   </div>
 
@@ -27,8 +28,8 @@
         <td><%= queue.request.song.artist %></td>
         <td><%= all_singers(queue.request, ", ") %></td>
         <td>
-          <%= button "Spelad", to: Routes.admin_path(@conn, :played, [setsong: queue]), method: :post %>
-          <%= button "Ta bort", to: Routes.admin_path(@conn, :delete, [setsong: queue]), method: :delete, class: "warning", data: [confirm: "Vill du verkligen ta bort låten från spellistan?"] %>
+          <%= button "Spelad", to: Routes.admin_path(@conn, :played, [setsong: queue]), method: :post, class: "small" %>
+          <%= button "Ta bort", to: Routes.admin_path(@conn, :delete, [setsong: queue]), method: :delete, class: "small warning", data: [confirm: "Vill du verkligen ta bort låten från spellistan?"] %>
         </td>
       </tr>
   <% end %>
@@ -48,7 +49,6 @@
         <th>Sångare</th>
         <th>Tidpunkt</th>
         <td></td>
-        <td></td>
       </tr>
     </thead>
     <tbody>
@@ -60,8 +60,6 @@
         <td><%= request.inserted_at |> get_time %></td>
         <td>
           <%= button "Lägg till", to: Routes.admin_path(@conn, :create, [request: request]) %>
-        </td>
-        <td>
           <%= button "X", to: Routes.request_path(@conn, :delete, [request: request]), class: "warning thin", data: [confirm: "Är du säker på att du vill ta bort förfrågningen?"], method: :delete %>
         </td>
       </tr>
