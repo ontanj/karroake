@@ -27,6 +27,15 @@ defmodule KarroakeWeb.SongController do
     end
   end
 
+  def delete(conn, %{"song" => id}) do
+    song = KaraokeList.get_song!(id)
+    {:ok, _song} = KaraokeList.delete_song(song)
+
+    conn
+    |> put_flash(:info, "Låten har tagits bort.")
+    |> redirect(to: Routes.song_path(conn, :new))
+  end
+
   defp order_songs(list), do: Enum.sort(list, fn song1, song2 -> song1.id > song2.id end)
 
 end

@@ -31,6 +31,7 @@ defmodule KarroakeWeb.Router do
 
       get "/song", SongController, :new
       post "/song", SongController, :create
+      delete "/song", SongController, :delete
       delete "/request", RequestController, :delete
       get "/admin", AdminController, :index
       post "/admin", AdminController, :create

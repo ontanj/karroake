@@ -61,6 +61,24 @@ defmodule KarroakeWeb.SongControllerTest do
         assert text_response(conn, 401) =~ "401 Unauthorized"
       end
     end
+
+    describe "delete song" do
+      setup([:create_songs])
+      test "delete chosen song", %{conn: conn, songs: [song1 | _]} do
+        conn = using_basic_auth(conn)
+        |> delete(Routes.song_path(conn, :delete), song: song1.id)
+        assert redirected_to(conn) == Routes.song_path(conn, :new)
+
+        conn = get(conn, Routes.song_path(conn, :new))
+        resp = html_response(conn, 200)
+        assert resp =~ "Låten har tagits bort."
+        assert !String.contains?(resp, song1.artist)
+      end
+      test "unavailable when unauthorized", %{conn: conn, songs: [song1 | _]} do
+        conn = delete(conn, Routes.song_path(conn, :delete), song: song1.id)
+        assert text_response(conn, 401) =~ "401 Unauthorized"
+      end
+    end
   
     defp create_songs(_) do
       songs = [fixture(:song, 1), fixture(:song, 2)]

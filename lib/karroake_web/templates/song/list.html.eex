@@ -4,6 +4,7 @@
       <th>ID</th>
       <th>Artist</th>
       <th>Låt</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -12,6 +13,7 @@
       <td><%= song.id %></td>
       <td><%= song.artist %></td>
       <td><%= song.song %></td>
+      <td><%= button "X", to: Routes.song_path(@conn, :delete, [song: song]), class: "warning thin", data: [confirm: "Är du säker på att du vill ta bort låten?"], method: :delete %>
     </tr>
 <% end %>
   </tbody>
