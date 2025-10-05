@@ -37,6 +37,7 @@ defmodule Karroake.MixProject do
       {:phoenix_pubsub, "~> 2.0.0"},
       {:phoenix_ecto, "~> 4.3.0"},
       {:ecto_sql, "~> 3.9.0"},
+      {:esbuild, "~> 0.2", runtime: Mix.env() == :dev},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 3.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
@@ -59,7 +60,13 @@ defmodule Karroake.MixProject do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate", "test"],
+      "assets.deploy": ["esbuild default --minify", "phx.digest", &copy_static_files/1]
     ]
+  end
+
+  defp copy_static_files(_) do
+    File.cp_r!("assets/static", "priv/static")
+    :ok
   end
 end
