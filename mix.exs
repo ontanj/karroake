@@ -44,7 +44,7 @@ defmodule Karroake.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:basic_auth, "~> 2.2.2"},
-      {:tzdata, "~>1.0.1"}
+      {:tzdata, "~> 1.0.5"}
     ]
   end
 
