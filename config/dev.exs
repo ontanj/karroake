@@ -2,9 +2,9 @@ import Config
 
 # Configure your database
 config :karroake, Karroake.Repo,
-  username: "sol",
-  password: "sofla123",
-  database: "karroake_dev",
+  username: System.get_env("DB_USERNAME"),
+  password: System.get_env("DB_PASSWORD"),
+  database: System.get_env("DB_DATABASE"),
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
