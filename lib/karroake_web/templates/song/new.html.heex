@@ -1,0 +1,7 @@
+<h1>Lägg till ny låt</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.song_path(@conn, :create)) %>
+
+<h1>Existerande låtar</h1>
+
+<%= render "list.html", assigns %>

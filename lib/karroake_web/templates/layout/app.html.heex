@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Karro&Åke</title>
-    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+    <link rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")} />
   </head>
   <body>
     <header>
       <section class="container">
-        <img src="<%= Routes.static_path(@conn, "/images/logga_light.png") %>" alt="Karro&Åke Logga"/>
+        <img src={Routes.static_path(@conn, "/images/logga_light.png")} alt="Karro&Åke Logga"/>
       </section>
     </header>
     <main role="main" class="container">
@@ -23,6 +23,6 @@
         Applikationen skapad av <a href='https://www.linkedin.com/in/ontanj'> Anton Jeppsson</a>. Se mer på <a href='https://github.com/ontanj/karroake'>GitHub</a>.
       </section>
     </footer>
-    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+    <script type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
   </body>
 </html>
