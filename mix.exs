@@ -33,8 +33,8 @@ defmodule Karroake.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.4.9"},
-      {:phoenix_pubsub, "~> 1.1"},
+      {:phoenix, "~> 1.5.0"},
+      {:phoenix_pubsub, "~> 2.0.0"},
       {:phoenix_ecto, "~> 4.0"},
       {:ecto_sql, "~> 3.9.0"},
       {:postgrex, ">= 0.0.0"},
@@ -42,7 +42,7 @@ defmodule Karroake.MixProject do
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"},
+      {:plug_cowboy, "~> 2.2.0"},
       {:basic_auth, "~> 2.2.2"},
       {:tzdata, "~> 1.0.5"}
     ]

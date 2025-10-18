@@ -15,7 +15,7 @@ config :karroake, KarroakeWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "lf+7bbOo+PvmnFpMQEpcWDT3i2Fat4o/Sl2ypOzRkhq8kftfxT9i/LtZSN1J30JN",
   render_errors: [view: KarroakeWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Karroake.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub_server: Karroake.PubSub
 
 # Configures Elixir's Logger
 config :logger, :console,
