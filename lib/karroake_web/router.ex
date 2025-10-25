@@ -1,3 +1,5 @@
+import Plug.BasicAuth
+
 defmodule KarroakeWeb.Router do
   use KarroakeWeb, :router
 
@@ -14,7 +16,7 @@ defmodule KarroakeWeb.Router do
   end
 
   pipeline :authenticated do
-    plug BasicAuth, use_config: {:karroake, :auth}
+    plug :basic_auth, Application.compile_env(:karroake, :auth)
   end
 
   scope "/", KarroakeWeb do
