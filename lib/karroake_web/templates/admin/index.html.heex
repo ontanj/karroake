@@ -29,7 +29,7 @@
         <td><%= all_singers(queue.request, ", ") %></td>
         <td>
           <%= button "Spelad", to: Routes.admin_path(@conn, :played, [setsong: queue]), method: :post, class: "small" %>
-          <%= button "Ta bort", to: Routes.admin_path(@conn, :delete, [setsong: queue]), method: :delete, class: "small warning", data: [confirm: "Vill du verkligen ta bort låten från spellistan?"] %>
+          <%= button "Ångra", to: Routes.admin_path(@conn, :delete, [setsong: queue]), method: :delete, class: "small warning", data: [confirm: "Vill du verkligen ta bort låten från spellistan?"] %>
         </td>
       </tr>
   <% end %>
