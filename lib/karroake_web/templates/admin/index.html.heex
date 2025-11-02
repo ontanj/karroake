@@ -11,11 +11,16 @@
   </div>
 
   <table>
+    <colgroup>
+      <col>
+      <col>
+      <col>
+      <col style="width: 200px">
+    </colgroup>
     <thead>
       <tr>
         <th>ID</th>
         <th>Låt</th>
-        <th>Artist</th>
         <th>Sångare</th>
         <th></th>
       </tr>
@@ -24,8 +29,7 @@
   <%= for queue <- @queued do %>
       <tr>
         <td><%= queue.request.song.id %></td>
-        <td><%= queue.request.song.song %></td>
-        <td><%= queue.request.song.artist %></td>
+        <td><%= queue.request.song.song %> - <%= queue.request.song.artist %></td>
         <td><%= all_singers(queue.request, ", ") %></td>
         <td>
           <%= button "Spelad", to: Routes.admin_path(@conn, :played, [setsong: queue]), method: :post, class: "small" %>
@@ -42,10 +46,15 @@
   <h1>Förfrågningar</h1>
 
   <table>
+    <colgroup>
+      <col>
+      <col>
+      <col>
+      <col style="width: 150px">
+    </colgroup>
     <thead>
       <tr>
         <th>Låt</th>
-        <th>Artist</th>
         <th>Sångare</th>
         <th>Tidpunkt</th>
         <td></td>
@@ -54,13 +63,12 @@
     <tbody>
   <%= for request <- @requested do %>
       <tr>
-        <td><%= request.song.song %></td>
-        <td><%= request.song.artist %></td>
+        <td><%= request.song.song %> - <%= request.song.artist %></td>
         <td><%= all_singers(request, ", ") %></td>
         <td><%= request.inserted_at |> get_time %></td>
         <td>
-          <%= button "Lägg till", to: Routes.admin_path(@conn, :create, [request: request]) %>
-          <%= button "X", to: Routes.request_path(@conn, :delete, [request: request]), class: "warning thin", data: [confirm: "Är du säker på att du vill ta bort förfrågningen?"], method: :delete %>
+          <%= button "+", to: Routes.admin_path(@conn, :create, [request: request]) %>
+          <%= button "X", to: Routes.request_path(@conn, :delete, [request: request]), class: "warning small", data: [confirm: "Är du säker på att du vill ta bort förfrågningen?"], method: :delete %>
         </td>
       </tr>
   <% end %>
