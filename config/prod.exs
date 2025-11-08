@@ -15,7 +15,6 @@ config :karroake, KarroakeWeb.Endpoint,
   load_from_system_env: true,
   http: [:inet6, port: System.get_env("PORT")],
   secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE")
-  
 
 # Do not print debug messages in production
 config :logger, level: :info
@@ -56,8 +55,10 @@ config :logger, level: :info
 
 # Configure your database
 config :karroake, Karroake.Repo,
+  adapter: Ecto.Adapters.Postgres,
   url: System.get_env("DATABASE_URL"),
   ssl: true,
+  ssl_opts: [verify: :verify_none],
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
 config :karroake, :auth,
@@ -67,4 +68,4 @@ config :karroake, :auth,
 
 # Finally import the config/prod.secret.exs which loads secrets
 # and configuration from environment variables.
-#import_config "prod.secret.exs"
+# import_config "prod.secret.exs"
